@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:text="Profile Section"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_height="100dp"
+        android:layout_width="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/profile_picture_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Picture" />
+
+        <Button
+            android:id="@+id/edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile" />
+    </LinearLayout>
+
+    <TextView
+        android:text="Notification Settings"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/push_notifications_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Push Notifications"
+            android:checked="true"/>
+
+        <Switch
+            android:id="@+id/email_notifications_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Notifications"
+            android:checked="false"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="Privacy Settings"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/profile_visibility_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/listing_visibility_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Switch
+            android:id="@+id/data_sharing_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data Sharing Preferences"
+            android:checked="true"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="App Preferences"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/theme_selection_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/language_settings_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/measurement_units_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="Account Management"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- Additional items can be added here -->
+    </LinearLayout>
+
+</LinearLayout>

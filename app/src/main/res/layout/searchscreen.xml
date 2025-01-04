@@ -17,6 +17,7 @@
         android:layout_marginEnd="16dp"
         android:text="Resource Hub"
         android:textSize="20sp"
+        android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="#000000"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +30,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="Settings Icon"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/settings"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -37,7 +38,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:radius="8dp"
         app:layout_constraintTop_toBottomOf="@id/title"
@@ -46,7 +47,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="8dp">
 
@@ -54,17 +55,19 @@
                 android:id="@+id/searchIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginTop="5dp"
                 android:contentDescription="Search Icon"
-                android:src="@drawable/ic_search"
-                android:tint="#A0A0A0" />
+                android:src="@drawable/search"
+                app:tint="#A0A0A0" />
 
-            <ImageView
-                android:id="@+id/micIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Mic Icon"
-                android:src="@drawable/ic_mic"
-                android:tint="#A0A0A0" />
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search..."
+                android:padding="8dp"
+                android:background="@drawable/edittext_background" /> <!-- Optional background -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -86,9 +89,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/category_button_bg"
             android:text="Books"
-            android:textColor="#606060" />
+            android:textColor="@color/black" />
 
         <View
             android:layout_width="8dp"
@@ -99,9 +101,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/category_button_bg"
             android:text="Drafting Tools"
-            android:textColor="#606060" />
+            android:textColor="@color/black" />
 
         <View
             android:layout_width="8dp"
@@ -112,9 +113,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/category_button_bg"
             android:text="Notes"
-            android:textColor="#606060" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
 
@@ -128,6 +128,16 @@
         android:textStyle="bold"
         android:textColor="#606060"
         app:layout_constraintTop_toBottomOf="@id/categoryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/searchResultsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/searchResultsTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

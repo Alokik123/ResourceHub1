@@ -83,7 +83,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_like"
+                    android:src="@drawable/book1"
                     android:contentDescription="Likes Icon" />
 
                 <TextView
@@ -110,7 +110,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_share"
+                    android:src="@drawable/book2"
                     android:contentDescription="Shares Icon" />
 
                 <TextView
@@ -137,7 +137,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_listing"
+                    android:src="@drawable/listingicon"
                     android:contentDescription="Listings Icon" />
 
                 <TextView
@@ -164,7 +164,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_review"
+                    android:src="@drawable/review"
                     android:contentDescription="Reviews Icon" />
 
                 <TextView

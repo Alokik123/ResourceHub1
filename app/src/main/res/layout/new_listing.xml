@@ -102,7 +102,7 @@
         <Spinner
             android:id="@+id/category_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@drawable/spinner_background"
             android:layout_marginBottom="16dp" />
 
@@ -186,7 +186,6 @@
             android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Need help? Contact support"
             android:textSize="12sp"
             android:layout_marginTop="16dp"
             android:gravity="center"

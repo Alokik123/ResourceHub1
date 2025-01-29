@@ -2,108 +2,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="16dp">
+
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
+        android:textColor="@color/black"
         android:textSize="24sp"
+        android:layout_marginStart="120dp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
     <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="Profile Section"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
-        android:layout_height="100dp"
-        android:layout_width="wrap_content"/>
+       />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/profile_picture_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profile Picture" />
+            android:background="@drawable/color_button_background"            android:text="Profile Picture"
+            android:drawableLeft="@drawable/profileicon"
+             android:drawablePadding="8dp"
+        android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/edit_profile_button"
+            android:id="@+id/edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Profile" />
+            android:background="@drawable/color_button_background"
+            android:text="Edit Profile"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/pencil"
+            android:drawablePadding="10dp" />
     </LinearLayout>
 
-    <TextView
-        android:text="Notification Settings"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_height="20dp"
-         android:layout_width="wrap_content"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/push_notifications_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Push Notifications"
-            android:checked="true"/>
-
-        <Switch
-            android:id="@+id/email_notifications_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email Notifications"
-            android:checked="false"/>
-    </LinearLayout>
 
     <TextView
         android:text="Privacy Settings"
         android:textSize="20sp"
-        android:layout_height="20dp"
-        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/profile_visibility_spinner"
+        <Button
+            android:id="@+id/policy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Spinner
-            android:id="@+id/listing_visibility_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Switch
-            android:id="@+id/data_sharing_switch"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data Sharing Preferences"
-            android:checked="true"/>
+            android:background="@drawable/color_button_background_2"
+            android:drawableLeft="@drawable/eyeicon"
+            android:drawablePadding="8dp"
+            android:text="Privacy Policy" />
+        <Button
+            android:id="@+id/Data_Prefs"
+            android:layout_width="match_parent"
+            android:background="@drawable/color_button_background_2"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/share"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="10dp"
+            android:text="Data Preferences" />
+
+
     </LinearLayout>
 
     <TextView
         android:text="App Preferences"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_height="20dp"
+        android:textColor="@color/black"
+        android:layout_height="30dp"
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"/>
 
@@ -112,35 +106,40 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/theme_selection_spinner"
+        <Button
+            android:id="@+id/Dark_Theme"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Spinner
-            android:id="@+id/language_settings_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Spinner
-            android:id="@+id/measurement_units_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:background="@drawable/color_button_background_3"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/themeicon"
+            android:drawablePadding="4dp"
+            android:layout_marginTop="10dp"
+            android:text="Theme Change" />
     </LinearLayout>
 
     <TextView
         android:text="Account Management"
         android:textSize="20sp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_width="wrap_content"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!-- Additional items can be added here -->
+
+        <Button
+            android:id="@+id/LogOut"
+            android:layout_width="match_parent"
+            android:background="@drawable/color_button_background_3"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/share"
+            android:drawablePadding="4dp"
+            android:layout_marginTop="10dp"
+            android:text="Logout" />
     </LinearLayout>
 
 </LinearLayout>

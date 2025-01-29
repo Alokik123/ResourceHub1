@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
+    <!-- State when the button is not pressed and not selected -->
+    <item android:state_pressed="false" android:state_selected="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/blue" />
             <corners android:radius="8dp" />
+            <solid android:color="@android:color/white" />
+            <stroke android:width="2dp" android:color="@android:color/black" />
         </shape>
     </item>
+
+    <!-- State when the button is selected -->
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/blue" />
+            <solid android:color="#33fcff" />
             <corners android:radius="8dp" />
         </shape>
     </item>
+
+    <!-- Default state (when pressed or any other state) -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/grey" />
+            <solid android:color="@android:color/white" />
+            <stroke android:width="2dp" android:color="@android:color/black" />
             <corners android:radius="8dp" />
         </shape>
     </item>

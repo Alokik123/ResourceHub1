@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ResourceHub</string>
     <string name="default_web_client_id">549459712903-nj1il4vb0vbsbqra8mepem57sfbm98j1.apps.googleusercontent.com</string>
+    <string name="geometry">Geometry</string>
     <string-array name="category_options">
         <item>Books</item>
         <item>Drafter</item>

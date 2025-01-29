@@ -16,7 +16,8 @@ playServicesAuth = "21.3.0"
 recyclerview = "1.3.2"
 viewpager2 = "1.1.0"
 firebaseAuth = "23.1.0"
-googleServices = "4.3.15" # Add the Google Services plugin version
+googleServices = "4.3.15"
+firebaseStorage = "21.0.1" # Add the Google Services plugin version
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -35,6 +36,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

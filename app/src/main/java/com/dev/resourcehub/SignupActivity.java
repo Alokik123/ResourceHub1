@@ -126,7 +126,7 @@ public class SignupActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // User registration successful
                         FirebaseUser user = mAuth.getCurrentUser();
-                        storeUserData(user, name, studentId, "email");
+                        storeUserData(user, name, studentId, "email",null);
                     } else {
                         // Log the error message with additional context
                         String errorMessage = "Registration failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error");
@@ -161,7 +161,8 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser  user = mAuth.getCurrentUser ();
-                            storeUserData(user, account.getDisplayName(), account.getEmail(), "google");
+                            String photoUrl = account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null; // Get the photo URL
+                            storeUserData(user, account.getDisplayName(), account.getEmail(), "google", photoUrl); // Pass the photo URL
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(SignupActivity.this, "Google Sign-In failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -180,12 +181,13 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void storeUserData(FirebaseUser  user, String name, String identifier, String method) {
+    private void storeUserData(FirebaseUser  user, String name, String identifier, String method, String photoUrl) {
         // Create a new user object
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("email", identifier);
         userData.put("userId", user.getUid());
+        userData.put("photoUrl", photoUrl); // Add the photo URL to the user data
 
         // Store user data in Firestore
         db.collection("users").document(user.getUid()).set(userData)

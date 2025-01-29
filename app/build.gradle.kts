@@ -39,13 +39,14 @@ dependencies {
     implementation(libs.firebase.auth) // Corrected to use the correct library reference
     implementation(libs.glide)
     implementation(libs.play.services.auth) // Google Sign-In
-
+    implementation(libs.firebase.storage)
     implementation(libs.recyclerview)
     implementation(libs.viewpager2)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.storage)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

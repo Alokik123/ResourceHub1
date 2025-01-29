@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnGoogleSignIn = findViewById(R.id.btn_google_sign_in);
         tvCreateAccount = findViewById(R.id.tv_create_account);
-        tvForgotPassword = findViewById(R.id.tv_forgot_password);
 
         // Sign In Button Click Listener
         btnSignIn.setOnClickListener(v -> loginUser ());

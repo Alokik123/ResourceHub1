@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,30 +28,34 @@ import java.util.Map;
 
 public class NewListingActivity extends AppCompatActivity {
 
-    private EditText titleInput, descriptionInput, priceInput;
+    private EditText titleInput, descriptionInput, priceInput, nameInput;
     private Spinner categorySpinner;
     private Button newButton, usedButton, listButton;
     private ImageView uploadImage;
     private static final int PICK_IMAGE_REQUEST = 1;
     private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     private Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_listing); // Make sure this matches your layout file
+        setContentView(R.layout.new_listing);
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
-        // Initialize UI elements
         titleInput = findViewById(R.id.title_input);
         descriptionInput = findViewById(R.id.description_input);
         priceInput = findViewById(R.id.price_input);
+        nameInput = findViewById(R.id.name);
         categorySpinner = findViewById(R.id.category_spinner);
         newButton = findViewById(R.id.new_button);
         usedButton = findViewById(R.id.used_button);
         listButton = findViewById(R.id.list_button);
-        uploadImage=findViewById(R.id.upload_image);
+        uploadImage = findViewById(R.id.upload_image);
         uploadImage.setOnClickListener(v -> openFileChooser());
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -56,6 +64,7 @@ public class NewListingActivity extends AppCompatActivity {
         categorySpinner.setAdapter(adapter);
         listButton.setOnClickListener(v -> uploadListing());
     }
+
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -78,27 +87,32 @@ public class NewListingActivity extends AppCompatActivity {
     }
 
     private void uploadListing() {
+        // Get input values
         String title = titleInput.getText().toString().trim();
         String description = descriptionInput.getText().toString().trim();
         String price = priceInput.getText().toString().trim();
+        String name = nameInput.getText().toString().trim();
         String category = categorySpinner.getSelectedItem() != null ? categorySpinner.getSelectedItem().toString() : ""; // Get selected category
 
-        // Basic validation
-        if (title.isEmpty() || description.isEmpty() || category.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        // Validate inputs
+        if (title.isEmpty() || description.isEmpty() || category.isEmpty() || imageUri == null) {
+            Toast.makeText(this, "Please fill in all fields and select an image", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a new listing object
+        // Create a map to hold the listing data
         Map<String, Object> listing = new HashMap<>();
         listing.put("title", title);
         listing.put("description", description);
+        listing.put("name", name);
         listing.put("category", category);
         listing.put("price", price);
-        listing.put("condition", newButton.isSelected() ? "New" : "Used"); // Determine condition based on button selection
-        listing.put("imageUrl", ""); // Add logic to upload image and get URL
+        listing.put("condition", newButton.isSelected() ? "New" : "Used"); // Determine condition based on button state
+        listing.put("imageUri", imageUri.toString());
+        listing.put("timestamp", System.currentTimeMillis()); // Add this line
 
-        db.collection("items_uploaded") // Replace with your collection name
+        // Save the listing data to Firestore
+        db.collection("items_uploaded")
                 .add(listing)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(NewListingActivity.this, "Listing uploaded successfully", Toast.LENGTH_SHORT).show();
@@ -106,6 +120,7 @@ public class NewListingActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(e -> {
+                    Log.e("NewListingActivity", "Error uploading listing: " + e.getMessage()); // Log the error
                     Toast.makeText(NewListingActivity.this, "Error uploading listing: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }

@@ -17,6 +17,7 @@
         android:layout_marginEnd="16dp"
         android:text="Resource Hub"
         android:textSize="20sp"
+        android:layout_marginTop="20dp"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="#000000"
@@ -26,8 +27,8 @@
 
     <ImageView
         android:id="@+id/settingsIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:contentDescription="Settings Icon"
         android:src="@drawable/settings"
@@ -51,20 +52,11 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <ImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="5dp"
-                android:contentDescription="Search Icon"
-                android:src="@drawable/search"
-                app:tint="#A0A0A0" />
 
             <EditText
                 android:id="@+id/et_search"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:hint="Search..."
                 android:padding="8dp"
                 android:background="@drawable/edittext_background" /> <!-- Optional background -->
@@ -92,15 +84,12 @@
             android:text="Books"
             android:textColor="@color/black" />
 
-        <View
-            android:layout_width="8dp"
-            android:layout_height="0dp" />
+
 
         <Button
             android:id="@+id/draftingToolsButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Drafting Tools"
             android:textColor="@color/black" />
 

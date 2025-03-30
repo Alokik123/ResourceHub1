@@ -48,47 +48,47 @@ android:layout_height="match_parent">
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="16dp">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingBottom="16dp">-->
 
-            <Button
-                android:id="@+id/btn_books"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/tab_button_background"
-                android:text="Books"
-                android:textColor="@color/black"
-                android:drawableLeft="@drawable/book_blue"
-                android:drawablePadding="8dp" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_books"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:background="@drawable/tab_button_background"-->
+<!--                android:text="Books"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:drawableLeft="@drawable/book_blue"-->
+<!--                android:drawablePadding="8dp" />-->
 
-            <Button
-                android:id="@+id/btn_tools"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/tab_button_background"
-                android:text="Tools"
-                android:drawableLeft="@drawable/tools"
-                android:drawablePadding="8dp"
-                android:textColor="@color/black" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_tools"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:background="@drawable/tab_button_background"-->
+<!--                android:text="Tools"-->
+<!--                android:drawableLeft="@drawable/tools"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:textColor="@color/black" />-->
 
-            <Button
-                android:id="@+id/btn_stationery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_button_background"
-                android:text="@string/geometry"
-                android:textSize="10sp"
-                android:drawableLeft="@drawable/pencil"
-                android:drawablePadding="10dp"
-                android:textColor="@color/black" />
-        </LinearLayout>
+<!--            <Button-->
+<!--                android:id="@+id/btn_stationery"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/tab_button_background"-->
+<!--                android:text="@string/geometry"-->
+<!--                android:textSize="10sp"-->
+<!--                android:drawableLeft="@drawable/pencil"-->
+<!--                android:drawablePadding="10dp"-->
+<!--                android:textColor="@color/black" />-->
+<!--        </LinearLayout>-->
 
 
 
@@ -114,6 +114,7 @@ android:layout_height="match_parent">
 
 
                     <LinearLayout
+                        android:id="@+id/containersLayout"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -274,18 +275,18 @@ android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/img_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:contentDescription="Settings"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/frame" />
+                android:src="@drawable/upload" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
-                android:text="Settings" />
+                android:text="Upload" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

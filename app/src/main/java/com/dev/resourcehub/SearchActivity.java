@@ -1,29 +1,39 @@
 package com.dev.resourcehub;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText; // Import EditText
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide; // Import Glide
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchActivity extends AppCompatActivity {
 
-    private Button btnBooks, btnDraftingTools, btnNotes;
     private LinearLayout searchResultsContainer;
-    private EditText etSearch, searchInput;
+    private EditText etSearch;
     private FirebaseFirestore db;
+    private List<QueryDocumentSnapshot> allItems; // List to hold all items
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -31,47 +41,49 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchscreen); // Make sure this matches your layout file
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
-        // Initialize UI elements
-        searchInput = findViewById(R.id.et_search);
         etSearch = findViewById(R.id.et_search);
-        btnBooks = findViewById(R.id.booksButton);
-        btnDraftingTools = findViewById(R.id.draftingToolsButton);
-        btnNotes = findViewById(R.id.notesButton);
         searchResultsContainer = findViewById(R.id.searchResultsContainer);
 
-        // Set button click listeners
-        btnBooks.setOnClickListener(v -> searchItems("Books"));
-        btnDraftingTools.setOnClickListener(v -> searchItems("Drafting Tools"));
-        btnNotes.setOnClickListener(v -> searchItems("Notes"));
+        // Load all items initially
+        loadAllItems();
+
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String searchTerm = etSearch.getText().toString().trim();
+                Log.d("SearchActivity", "Search term entered: " + searchTerm); // Log the search term
+                if (!searchTerm.isEmpty()) {
+                    filterItems(searchTerm); // Call the filter method
+                    // Hide the keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
+                }
+                return true; // Return true to indicate the action was handled
+            }
+            return false; // Return false for other actions
+        });
     }
 
-    private void searchItems(String category) {
-        String searchTerm = etSearch.getText().toString().trim(); // Get text from the EditText
-        if (searchTerm.isEmpty()) {
-            Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+    private void loadAllItems() {
         // Clear previous results
         searchResultsContainer.removeAllViews();
 
-        // Query Firestore for items matching the search term
-        db.collection("items") // Replace with your collection name
-                .whereEqualTo("category", category) // Assuming you have a category field
+        // Fetch all items from Firestore
+        db.collection("items_uploaded") // Replace with your collection name
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        allItems = new ArrayList<>(); // Initialize the list
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String title = document.getString("title");
-                            String condition = document.getString("condition");
-                            String price = document.getString("price");
-                            String imageUrl = document.getString("imageUrl"); // Assuming you have an image URL field
+                            allItems.add(document); // Add each document to the list
+                            String name = document.getString("name");
+                            String uploaderName = document.getString("uploaderName");
+                            String imageUrl = document.getString("imageUri");
+                            String documentId = document.getId();
 
                             // Create a new card view for each item
-                            addCardView(title, condition, price, imageUrl, document.getId());
+                            addSearchResultItem(name, uploaderName, imageUrl, documentId);
                         }
                     } else {
                         Toast.makeText(SearchActivity.this, "Error getting documents: " + task.getException(), Toast.LENGTH_SHORT).show();
@@ -79,32 +91,100 @@ public class SearchActivity extends AppCompatActivity {
                 });
     }
 
-    private void addCardView(String title, String condition, String price, String imageUrl, String itemId) {
-        // Inflate the card view layout
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View cardView = inflater.inflate(R.layout.item_card_view, searchResultsContainer, false);
+    private void filterItems(String searchTerm) {
+        // Clear previous results
+        searchResultsContainer.removeAllViews();
 
-        // Set the data in the card view
-        TextView titleView = cardView.findViewById(R.id.card_title);
-        TextView conditionView = cardView.findViewById(R.id.card_condition);
-        TextView priceView = cardView.findViewById(R.id.card_price);
-        ImageView imageView = cardView.findViewById(R.id.card_image);
+        // Log the search term
+        Log.d("SearchActivity", "Filtering for: " + searchTerm); // Ensure this log appears
 
-        titleView.setText(title);
-        conditionView.setText(condition);
-        priceView.setText(price);
+        boolean itemsFound = false;
 
-        // Load the image using Glide
-        Glide.with(this).load(imageUrl).into(imageView);
+        // Filter through all items
+        for (QueryDocumentSnapshot document : allItems) {
+            String name = document.getString("name");
+            if (name != null && name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                itemsFound = true; // Found a matching item
+                String uploaderName = document.getString("uploaderName");
+                String imageUrl = document.getString("imageUri");
+                String documentId = document.getId();
 
-        // Set a click listener to handle clicks on the card
-        cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(SearchActivity.this, NewListingActivity.class);
-            intent.putExtra("itemId", itemId); // Pass the item ID to the detail activity
+                // Create a new card view for each matching item
+                addSearchResultItem(name, uploaderName, imageUrl, documentId);
+            }
+        }
+
+        // Show message if no items were found
+        if (!itemsFound) {
+            Toast.makeText(SearchActivity.this, "No items found for: " + searchTerm, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void addSearchResultItem(String name, String uploaderName, String imageUrl, String documentId) {
+        LinearLayout itemLayout = new LinearLayout(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(16, 16, 16, 16); // Set bottom margin to create space between items
+        itemLayout.setLayoutParams(layoutParams);
+        itemLayout.setOrientation(LinearLayout.VERTICAL);
+        itemLayout.setBackgroundResource(R.drawable.border_background); // Set background with border
+        itemLayout.setPadding(16, 16, 16, 16); // Add padding for better spacing
+
+        // Set OnClickListener to navigate to ItemDetail
+        itemLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(SearchActivity.this, ItemDetail.class);
+            intent.putExtra("documentId", documentId); // Pass the document ID
+            intent.putExtra("imageUrl", imageUrl); // Pass the image URL
             startActivity(intent);
         });
 
-        // Add the card view to the results container
-        searchResultsContainer.addView(cardView);
+        // Create and set up the ImageView
+        ImageView itemImageView = new ImageView(this);
+        itemImageView.setLayoutParams(new LinearLayout.LayoutParams(
+                200,
+                100));
+        itemImageView.setContentDescription("Item Image");
+
+        // Load the image using Glide
+        Glide.with(this)
+                .load(imageUrl)
+                .placeholder(R.drawable.book1) // Use book1.jpg as the placeholder
+                .error(R.drawable.notificationicon) // Optional: Error image if loading fails
+                .listener(new com.bumptech.glide.request.RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        // Log the error
+                        Log.e("SearchActivity", "Image load failed for URL: " + imageUrl, e);
+                        // Show a Toast message
+                        Toast.makeText(SearchActivity.this, "Failed to load image for: " + name, Toast.LENGTH_SHORT).show();
+                        return false; // Return false to allow Glide to handle the error placeholder
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false; // Return false to allow Glide to handle the resource
+                    }
+                })
+                .into(itemImageView);
+
+        // Create and set up the title TextView
+        TextView titleTextView = new TextView(this);
+        titleTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, // Set width to match parent for centering
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        titleTextView.setText(name); // Use name instead of title
+        titleTextView.setTextColor(getResources().getColor(android.R.color.black)); // Set text color
+        titleTextView.setTextSize(16);
+        titleTextView.setTypeface(null, android.graphics.Typeface.BOLD);
+        titleTextView.setPadding(0, 8, 0, 0); // Add some padding above the title
+        titleTextView.setGravity(Gravity.CENTER); // Center the text
+
+        // Add the ImageView and TextViews to the item layout
+        itemLayout.addView(itemImageView);
+        itemLayout.addView(titleTextView); // Add the title TextView next
+
+        // Add the item layout to the search results container
+        searchResultsContainer.addView(itemLayout);
     }
 }

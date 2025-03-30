@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class NewListingActivity extends AppCompatActivity {
 
-    private EditText titleInput, descriptionInput, priceInput, nameInput;
+    private EditText titleInput, descriptionInput, priceInput, nameInput, phoonenumber;
     private Spinner categorySpinner;
     private Button newButton, usedButton, listButton;
     private ImageView uploadImage;
@@ -56,6 +56,7 @@ public class NewListingActivity extends AppCompatActivity {
         usedButton = findViewById(R.id.used_button);
         listButton = findViewById(R.id.list_button);
         uploadImage = findViewById(R.id.upload_image);
+        phoonenumber=findViewById(R.id.phone_number_input);
         uploadImage.setOnClickListener(v -> openFileChooser());
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -92,6 +93,7 @@ public class NewListingActivity extends AppCompatActivity {
         String description = descriptionInput.getText().toString().trim();
         String price = priceInput.getText().toString().trim();
         String name = nameInput.getText().toString().trim();
+        String phonenumber=phoonenumber.getText().toString().trim();
         String category = categorySpinner.getSelectedItem() != null ? categorySpinner.getSelectedItem().toString() : ""; // Get selected category
 
         // Validate inputs
@@ -107,8 +109,14 @@ public class NewListingActivity extends AppCompatActivity {
         listing.put("name", name);
         listing.put("category", category);
         listing.put("price", price);
+        getContentResolver().takePersistableUriPermission(
+                imageUri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+        );
         listing.put("condition", newButton.isSelected() ? "New" : "Used"); // Determine condition based on button state
         listing.put("imageUri", imageUri.toString());
+
+        listing.put("phone",phonenumber);
         listing.put("timestamp", System.currentTimeMillis()); // Add this line
 
         // Save the listing data to Firestore

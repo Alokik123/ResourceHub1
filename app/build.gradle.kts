@@ -41,8 +41,12 @@ dependencies {
     implementation(libs.play.services.auth) // Google Sign-In
     implementation(libs.firebase.storage)
     implementation(libs.recyclerview)
+    implementation (libs.appcompat.v170) // or the latest version
     implementation(libs.viewpager2)
+    implementation (libs.glide.v4151)
+    annotationProcessor (libs.compiler)
     implementation(libs.appcompat)
+    implementation (libs.squareup.picasso)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)

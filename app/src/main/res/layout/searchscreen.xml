@@ -52,14 +52,15 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
-
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search..."
                 android:padding="8dp"
-                android:background="@drawable/edittext_background" /> <!-- Optional background -->
+                android:inputType="textAutoComplete"
+                android:background="@drawable/edittext_background"
+                android:imeOptions="actionSearch" /> <!-- Set IME options for search action -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

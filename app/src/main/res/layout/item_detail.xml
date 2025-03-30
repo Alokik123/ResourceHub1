@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="217dp"
@@ -21,17 +20,14 @@
 
             <ImageView
                 android:id="@+id/item_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/image_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder" />
-
-
+                android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/image_background"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder" />
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/title"
@@ -54,7 +50,6 @@
             android:layout_marginBottom="16dp"
             android:textColor="#555555" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,9 +58,8 @@
             android:layout_marginBottom="16dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -86,24 +80,7 @@
                     android:textSize="16sp"
                     android:textColor="#555555" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/donation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Donation"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
-            </LinearLayout>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,23 +105,22 @@
                     android:textColor="#000000" />
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="vertical">-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/location"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Cambridge"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textColor="#000000" />-->
-<!--            </LinearLayout>-->
+                <TextView
+                    android:id="@+id/phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9xxxxx"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </LinearLayout>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
